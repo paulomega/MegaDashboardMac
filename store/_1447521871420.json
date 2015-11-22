@@ -1,0 +1,31 @@
+{
+  "title": "New Sample",
+  "structure": "4-8",
+  "rows": [
+    {
+      "columns": [
+        {
+          "styleClass": "col-md-4",
+          "widgets": [],
+          "cid": 1
+        },
+        {
+          "styleClass": "col-md-8",
+          "widgets": [
+            {
+              "type": "mgchart",
+              "config": {
+                "id": "_1448048046114"
+              },
+              "title": "Mega Chart",
+              "titleTemplateUrl": "../src/templates/widget-title.html",
+              "wid": 3
+            }
+          ],
+          "cid": 2
+        }
+      ]
+    }
+  ],
+  "titleTemplateUrl": "../src/templates/dashboard-title.html"
+}

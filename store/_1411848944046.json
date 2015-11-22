@@ -1,0 +1,90 @@
+{
+  "title": "Mega Dashboard",
+  "structure": "4-8",
+  "rows": [
+    {
+      "columns": [
+        {
+          "styleClass": "col-md-4",
+          "widgets": [
+            {
+              "type": "mgchart",
+              "config": {
+                "id": "_1448022860124",
+                "sample": "Exemplo"
+              },
+              "title": "Mega Chart",
+              "titleTemplateUrl": "../src/templates/widget-title.html",
+              "wid": 1
+            },
+            {
+              "type": "iframe",
+              "config": {
+                "height": "420px"
+              },
+              "title": "Noticias",
+              "titleTemplateUrl": "../src/templates/widget-title.html",
+              "wid": 6
+            },
+            {
+              "type": "weather",
+              "config": {
+                "location": "New York"
+              },
+              "title": "Weather",
+              "titleTemplateUrl": "../src/templates/widget-title.html",
+              "wid": 3
+            },
+            {
+              "type": "weather",
+              "config": {
+                "location": "Hildesheim"
+              },
+              "title": "Weather",
+              "titleTemplateUrl": "../src/templates/widget-title.html",
+              "wid": 4
+            }
+          ],
+          "cid": 1
+        },
+        {
+          "styleClass": "col-md-8",
+          "widgets": [
+            {
+              "type": "mgchart",
+              "config": {
+                "id": "_1448023079028"
+              },
+              "title": "Mega Chart",
+              "titleTemplateUrl": "../src/templates/widget-title.html",
+              "wid": 1
+            },
+            {
+              "type": "randommsg",
+              "config": {},
+              "title": "Random Message",
+              "titleTemplateUrl": "../src/templates/widget-title.html",
+              "wid": 5
+            },
+            {
+              "type": "linklist",
+              "config": {
+                "links": [
+                  {
+                    "title": "Uol"
+                  },
+                  {}
+                ]
+              },
+              "title": "Links",
+              "titleTemplateUrl": "../src/templates/widget-title.html",
+              "wid": 7
+            }
+          ],
+          "cid": 2
+        }
+      ]
+    }
+  ],
+  "titleTemplateUrl": "../src/templates/dashboard-title.html"
+}
