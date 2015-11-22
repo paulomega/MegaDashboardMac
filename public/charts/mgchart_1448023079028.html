@@ -1,0 +1,100 @@
+<script type="text/javascript-lazy">
+  debug("It works!");
+  
+  function citySelection ($scope) {
+    debug("citySelection");
+    var query = escape('select * from weather.forecast where woeid="' + $scope.mydata.city + '" and u="c"'),
+        url = "http://query.yahooapis.com/v1/public/yql?q=" + query + "&format=json";
+    $.ajax({ url: url, dataType: "jsonp" }).done(function (arg) {
+        var condition = arg.query.results.channel.item.condition,
+            atmosphere = arg.query.results.channel.atmosphere;
+
+        if (condition !== undefined && atmosphere !== undefined) {
+            $scope.mydata.temperature = condition.temp;
+            $scope.mydata.humidity = atmosphere.humidity;
+            $scope.mydata.pressure = atmosphere.pressure;
+        }
+    });
+};
+   angular.element(document).ready(function () {
+        var controllerElement = document.querySelector('#myCitySelector');
+        var controllerScope = angular.element(controllerElement).scope();
+        
+        controllerScope.citySelection = citySelection(controllerScope)
+        
+        //app.registerCtrl('mgchartCtrl', function($scope)
+        //{
+        //   $scope.citySelection = citySelection; 
+        //});
+  });
+</script>
+
+<div id="container" class="container-fluid">
+<div class="row">
+<div class="col-md-4">
+    <div class="gauge-element" dx-linear-gauge="{
+    title: 'Temperature (°C)',
+    geometry: { orientation: 'vertical' },
+    scale: {
+        startValue: -40, endValue: 40,
+        majorTick: { tickInterval: 40 }
+    },
+    rangeContainer: {
+        backgroundColor: 'none',
+        ranges: [
+            { startValue: -40, endValue: 0, color: '#679EC5' },
+            { startValue: 0, endValue: 40 }
+        ]
+    },
+    value: mydata.temperatura
+	}">
+	</div>
+	</div>
+	<div class="col-md-4">
+    <div class="gauge-element" dx-linear-gauge="{
+    title: 'Humidity (%)',
+    geometry: { orientation: 'vertical' },
+    scale: {
+        startValue: 0, endValue: 100,
+        majorTick: { tickInterval: 10 },
+    },
+    rangeContainer: { backgroundColor: '#CACACA' },
+    valueIndicator: { type: 'rhombus', color: '#A4DDED' },
+    value: mydata.humidade
+	}">
+	</div>
+	</div>
+	<div class="col-md-4">
+    <div class="gauge-element" dx-linear-gauge="{
+    title: 'Barometric Pressure (mb)',
+    geometry: { orientation: 'vertical' },
+    scale: {
+        startValue: 900, endValue: 1100,
+        majorTick: {
+            showCalculatedTicks: false,
+            customTickValues: [900, 1000, 1020, 1100]
+        }
+    },
+    rangeContainer: {
+        ranges: [
+            { startValue: 900, endValue: 1000, color: '#679EC5' },
+            { startValue: 1000, endValue: 1020, color: '#A6C567' },
+            { startValue: 1020, endValue: 1100, color: '#E18E92' }
+        ]
+    },
+    valueIndicator: { type: 'circle', color: '#E3A857' },
+    value: mydata.pressao
+	}">
+	</div>
+	</div>
+</div>
+<div id="myCitySelector" dx-select-box="{
+    width: 150,
+    dataSource: mydata.cities,
+    onSelectionChanged: citySelection,
+    displayExpr: 'name',
+    valueExpr: 'id',
+    value: mydata.city
+    }"> 
+    </div>
+</div>

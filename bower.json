@@ -1,0 +1,28 @@
+{
+  "name": "adf-dynamic-example",
+  "dependencies": {
+    "adf-structures-base": "^0.1.0",
+    "adf-widget-clock": "^0.1.0",
+    "adf-widget-github": "^0.1.1",
+    "adf-widget-iframe": "^0.1.0",
+    "adf-widget-linklist": "^0.1.0",
+    "adf-widget-markdown": "^0.1.0",
+    "adf-widget-news": "^0.1.0",
+    "adf-widget-randommsg": "^0.1.0",
+    "adf-widget-version": "^0.1.0",
+    "adf-widget-weather": "^0.1.0",
+    "angular": "^1.4.5",
+    "angular-dashboard-framework": "^0.10.0",
+    "angular-route": "^1.4.5",
+    "angular-sanitize": "~1.4.8",
+    "devextreme": "~15.1.8",
+    "oclazyload": "~1.0.8"
+  },
+  "resolutions": {
+    "angular": "^1.4.5",
+    "bootstrap": "3.3.5",
+    "Sortable": "1.2.1",
+    "angular-bootstrap": "^0.13.3",
+    "angular-dashboard-framework": "^0.10.0"
+  }
+}

@@ -1,0 +1,16 @@
+ {
+      "temperatura": 20,
+      "humidade": 30,
+      "pressao": 1050,
+      "city" : 44418, 
+      "cities": [{
+                "name": "London",
+                "id": 44418
+                }, {
+                "name": "Berlin",
+                "id": 638242
+                }, {
+                "name": "New York",
+                "id": 2459115
+                }]
+}
