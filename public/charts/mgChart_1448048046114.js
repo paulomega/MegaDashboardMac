@@ -2,26 +2,21 @@
 
 debug('myNewChart' );
 
-var controllerProvider = null;
 
-angular.module('HelloWorld', []).factory('$message', function() {
-	return "Hello World";
-});
+// Once the DOM-Ready event has fired, we know that AngularJS
+// will have bootstrapped the application. As such, we want to 
+// try adding our "lazy bindings" after the DOM-ready event.
+$( lazyBindings );
 
-// Load javascript file with controllers/directives/services
-angular.module('TestModule', ['HelloWorld', 'oc.lazyLoad'], function($controllerProvider) {
-    controllerProvider = $controllerProvider;
-})
-.controller('myNewChartCtrl', function($scope, $rootScope, $controller) {
+function lazyBindings() {
+
+// Load javascript file with controllers/directives/servicess
+app.controller('myNewChartCtrl', function($scope, $rootScope, $controller) {
         
     console.log("scope.id= " + $scope.$id +  "scope.parent.id= " + $scope.$parent.$id + "  It works! rootScope is " + $rootScope.$id +
         ", should be " + angular.element('[ng-app=MegaDashboardJS]').scope().$id);
-    
-    var myNewScope = $scope.$new();
-     
-    $controller('mgchartCtrl', { $scope : myNewScope }); 
-        
-    myNewScope.mydata = {
+            
+    $scope.mydata = {
       "temperatura": 0,
       "humidade": 0,
       "pressao": 0,
@@ -63,29 +58,12 @@ angular.module('TestModule', ['HelloWorld', 'oc.lazyLoad'], function($controller
            
 });
 
+              //  var scope = angular.element($('body')).scope();
+              //  scope.$apply(function(){
+              //      scope.loadChart();
+              //  })
 
-angular.bootstrap($('[ng-app="myChartApp"]'), ['TestModule']);
-
-// Register Ctrl controller manually
-// If you can reference the controller function directly, just run:
-// $controllerProvider.register(controllerName, controllerFunction);
-// Note: I haven't found a way to get $controllerProvider at this stage
-//    so I keep a reference from when I ran my module config
-function registerController(moduleName, controllerName) {
-    // Here I cannot get the controller function directly so I
-    // need to loop through the module's _invokeQueue to get it
-    var queue = angular.module(moduleName)._invokeQueue;
-    for(var i=0;i<queue.length;i++) {
-        var call = queue[i];
-        if(call[0] == "$controllerProvider" &&
-           call[1] == "register" &&
-           call[2][0] == controllerName) {
-            controllerProvider.register(controllerName, call[2][1]);
-        }
-    }
 }
-registerController("TestModule", "myNewChartCtrl");
-
 
 }
 )(window);

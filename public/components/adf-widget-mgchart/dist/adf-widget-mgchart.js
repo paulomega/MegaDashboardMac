@@ -14,10 +14,14 @@ angular.module('adf.widget.mgchart', [ 'adf.provider'])
         }
       });
   })
-  .controller('mgchartCtrl', function ($scope, $http, $ocLazyLoad) {
+  .controller('mgchartCtrl', function ($scope, $http, $ocLazyLoad, $rootScope) {
             console.log('mgchartCtrl scope id = ', $scope.$id);
             console.log('mgchartCtrl parent scope id = ', $scope.$parent.$id);
-            
+      
+    $scope.loadChart = function() {
+      $scope.myChartHTML = 'charts/mgChart' + $scope.config.id + '.html';
+    }; 
+
     $scope.mydata = { temperatura : 35 }; 
     $scope.mgchartConfig = '';
     // Se näo existe o id, estamos criando um novo widget
@@ -25,15 +29,34 @@ angular.module('adf.widget.mgchart', [ 'adf.provider'])
       $scope.config.id = '_' + new Date().getTime();
     } else
     {   
-      $ocLazyLoad.load('charts/mgChart' + $scope.config.id + '.js');
+     // $ocLazyLoad.load('charts/mgChart' + $scope.config.id + '.js');
      // $scope.lazyLoadParams = [
      //                           'charts/mgChart' + $scope.config.id + '.js'
      //                         ];
-      //$http.get('charts/mgChart' + $scope.config.id + '.js').success(function(data) {    
-      //  var f = new Function(data);
-      //    f();  
-      //});
-      $scope.myChartHTML = 'charts/mgChart' + $scope.config.id + '.html';
+      
+    $rootScope.safeApply = function( fn ) {
+        var phase = this.$root.$$phase;
+        if(phase == '$apply' || phase == '$digest') {
+            if(fn) {
+                fn();
+            }
+        } else {
+          this.$apply(fn);
+        }
+    };
+
+
+      $http.get('charts/mgChart' + $scope.config.id + '.js').success(function(data) {    
+        var f = new Function(data);
+          f(); 
+          
+          $rootScope.safeApply(function(){
+              $scope.loadChart();
+          })
+      });
+
+
+      //$scope.myChartHTML = 'charts/mgChart' + $scope.config.id + '.html';
 
       /*
       $http.get('charts/mgChart' + $scope.config.id + '.json').success(function(data) {
