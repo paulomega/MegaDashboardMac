@@ -15,7 +15,9 @@
             { startValue: 0, endValue: 40 }
         ]
     },
-    value: mydata.temperatura
+    bindingOptions: {
+                         value: 'mydata.temperatura'
+                    }
 	}">
 	</div>
 	</div>
@@ -29,7 +31,9 @@
     },
     rangeContainer: { backgroundColor: '#CACACA' },
     valueIndicator: { type: 'rhombus', color: '#A4DDED' },
-    value: mydata.humidade
+    bindingOptions: {
+                         value: 'mydata.humidade'
+                    }
 	}">
 	</div>
 	</div>
@@ -52,7 +56,9 @@
         ]
     },
     valueIndicator: { type: 'circle', color: '#E3A857' },
-    value: mydata.pressao
+    bindingOptions: {
+                         value: 'mydata.pressao'
+                    }
 	}">
 	</div>
 	</div>
@@ -63,7 +69,9 @@
     onSelectionChanged: citySelection,
     displayExpr: 'name',
     valueExpr: 'id',
-    value: mydata.city
+    bindingOptions: {
+                         value: 'mydata.city'
+                    }
     }"> 
     </div>
 </div>

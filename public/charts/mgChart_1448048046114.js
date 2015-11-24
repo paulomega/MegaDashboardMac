@@ -1,7 +1,6 @@
 (function(window, undefined) {'use strict';
 
-debug('myNewChart' );
-
+   debug('myNewChart' );
 
 // Once the DOM-Ready event has fired, we know that AngularJS
 // will have bootstrapped the application. As such, we want to 
@@ -10,58 +9,53 @@ $( lazyBindings );
 
 function lazyBindings() {
 
-// Load javascript file with controllers/directives/servicess
-app.controller('myNewChartCtrl', function($scope, $rootScope, $controller) {
-        
-    console.log("scope.id= " + $scope.$id +  "scope.parent.id= " + $scope.$parent.$id + "  It works! rootScope is " + $rootScope.$id +
-        ", should be " + angular.element('[ng-app=MegaDashboardJS]').scope().$id);
+    // Load javascript file with controllers/directives/servicess
+    app.controller('myNewChartCtrl', function($scope, $rootScope, $controller) {
             
-    $scope.mydata = {
-      "temperatura": 0,
-      "humidade": 0,
-      "pressao": 0,
-      "city" : 44418, 
-      "cities": [{
-                "name": "London",
-                "id": 44418
-                }, {
-                "name": "Berlin",
-                "id": 638242
-                }, {
-                "name": "New York",
-                "id": 2459115
-                }]
-        };
-   
-   $scope.setDados = function setDados(temp, hum, pres) {
-            $scope.mydata.temperatura = temp;
-            $scope.mydata.humidade = hum;
-            $scope.mydata.pressao = pres;      
-   };  
-      
-   $scope.citySelection = function citySelection (e) {
-    debug("citySelection");
+        console.log("scope.id= " + $scope.$id +  "scope.parent.id= " + $scope.$parent.$id + "  It works! rootScope is " + $rootScope.$id +
+            ", should be " + angular.element('[ng-app=MegaDashboardJS]').scope().$id);
+                
+        $scope.mydata = {
+                            "temperatura": 0,
+                            "humidade": 0,
+                            "pressao": 0,
+                            "city" : 638242, 
+                            "cities": [{
+                                        "name": "London",
+                                        "id": 44418
+                                        }, {
+                                        "name": "Berlin",
+                                        "id": 638242
+                                        }, {
+                                        "name": "New York",
+                                        "id": 2459115
+                                        }]
+                         };
     
-    $scope = angular.element('#myNewChart').scope();
-    
-    var query = escape('select * from weather.forecast where woeid="' + e.selectedItem.id + '" and u="c"'),
-        url = "http://query.yahooapis.com/v1/public/yql?q=" + query + "&format=json";
-    $.ajax({ url: url, dataType: "jsonp" }).done(function (arg) {
-        var condition = arg.query.results.channel.item.condition,
-            atmosphere = arg.query.results.channel.atmosphere;
-
-        if (condition !== undefined && atmosphere !== undefined) {
-            $scope.setDados(condition.temp, atmosphere.humidity, atmosphere.pressure);
-        }
-    })
-    };
-           
-});
-
-              //  var scope = angular.element($('body')).scope();
-              //  scope.$apply(function(){
-              //      scope.loadChart();
-              //  })
+    $scope.citySelection = function citySelection (e) {
+        
+            debug("citySelection");
+            
+            $scope = angular.element(e.element).scope();
+            
+            var query = escape('select * from weather.forecast where woeid="' + $scope.mydata.city + '" and u="c"'),
+                url = "http://query.yahooapis.com/v1/public/yql?q=" + query + "&format=json";
+            $.ajax({ url: url, dataType: "jsonp" }).done(function (arg) {
+                var condition = arg.query.results.channel.item.condition,
+                    atmosphere = arg.query.results.channel.atmosphere;
+            
+                if (condition !== undefined && atmosphere !== undefined) {
+                    console.log('city=' + $scope.mydata.city);
+                    console.log(condition.temp);
+                    console.log(atmosphere.humidity);
+                    console.log(atmosphere.pressure);
+                    $scope.$apply($scope.mydata.temperatura = condition.temp);
+                    $scope.$apply($scope.mydata.humidade = atmosphere.humidity);
+                    $scope.$apply($scope.mydata.pressao = atmosphere.pressure);
+                }
+            })
+        };       
+    });
 
 }
 

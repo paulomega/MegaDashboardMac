@@ -18,10 +18,7 @@ angular.module('adf.widget.mgchart', [ 'adf.provider'])
             console.log('mgchartCtrl scope id = ', $scope.$id);
             console.log('mgchartCtrl parent scope id = ', $scope.$parent.$id);
       
-    $scope.loadChart = function() {
-      $scope.myChartHTML = 'charts/mgChart' + $scope.config.id + '.html';
-    }; 
-
+    $scope.sample = $scope.$id;
     $scope.mydata = { temperatura : 35 }; 
     $scope.mgchartConfig = '';
     // Se näo existe o id, estamos criando um novo widget
@@ -31,49 +28,19 @@ angular.module('adf.widget.mgchart', [ 'adf.provider'])
     {   
      // $ocLazyLoad.load('charts/mgChart' + $scope.config.id + '.js');
      // $scope.lazyLoadParams = [
-     //                           'charts/mgChart' + $scope.config.id + '.js'
+     //                           'charts/mgChart' + $scope.config.id + '.js',
+     //                           'charts/mgChart' + $scope.config.id + '.html'
      //                         ];
       
-    $rootScope.safeApply = function( fn ) {
-        var phase = this.$root.$$phase;
-        if(phase == '$apply' || phase == '$digest') {
-            if(fn) {
-                fn();
-            }
-        } else {
-          this.$apply(fn);
-        }
-    };
-
-
       $http.get('charts/mgChart' + $scope.config.id + '.js').success(function(data) {    
         var f = new Function(data);
-          f(); 
-          
-          $rootScope.safeApply(function(){
-              $scope.loadChart();
-          })
+          f();        
+        $scope.loadChart();  
       });
 
-
-      //$scope.myChartHTML = 'charts/mgChart' + $scope.config.id + '.html';
-
-      /*
-      $http.get('charts/mgChart' + $scope.config.id + '.json').success(function(data) {
-        console.log(data);
-        $scope.mydata = data;
-      });
-      $http.get('charts/mgChart' + $scope.config.id + '.html').success(function(data) {   
-        console.log("mgChart scope = " + $scope.$id);    
-        $scope.mgchartConfig = data;
-      });
-      */
-/*      $http.get('charts/mgChart' + $scope.config.id + '.html').then(angular.bind(this, 
-            function(response) { 
-                this.response = response; //use this (which is the bound context) 
-                $scope.mgchartConfig = response;
-            }));
-            */
+      $scope.loadChart = function() {
+        $scope.myChartHTML = 'charts/mgChart' + $scope.config.id + '.html';
+      }; 
     };
   });
 
