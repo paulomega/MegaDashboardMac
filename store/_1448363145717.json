@@ -1,5 +1,5 @@
 {
-  "title": "Gráficos",
+  "title": "New Sample",
   "structure": "4-8",
   "rows": [
     {
@@ -8,12 +8,11 @@
           "styleClass": "col-md-4",
           "widgets": [
             {
-              "type": "mgchart",
+              "type": "weather",
               "config": {
-                "id": "_1448363119737",
-                "sample": ""
+                "location": "London"
               },
-              "title": "Mega Pie Chart",
+              "title": "Weather",
               "titleTemplateUrl": "../src/templates/widget-title.html",
               "wid": 1
             }
@@ -27,11 +26,11 @@
               "type": "mgchart",
               "config": {
                 "id": "_1448048046114",
-                "sample": "Temperaturas no mundo"
+                "sample": "Temperaturas"
               },
               "title": "Mega Chart",
               "titleTemplateUrl": "../src/templates/widget-title.html",
-              "wid": 3
+              "wid": 1
             }
           ],
           "cid": 2
